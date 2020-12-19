@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file      startup_stm32h723xx.s
+  * @file      startup_stm32h743xx.s
   * @author    MCD Application Team
-  * @brief     STM32H723xx Devices vector table for GCC based toolchain. 
+  * @brief     STM32H743xx Devices vector table for GCC based toolchain.
   *            This module performs:
   *                - Set the initial SP
   *                - Set the initial PC == Reset_Handler,
