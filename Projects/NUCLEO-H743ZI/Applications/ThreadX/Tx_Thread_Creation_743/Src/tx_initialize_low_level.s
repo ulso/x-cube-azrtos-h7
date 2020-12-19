@@ -211,7 +211,7 @@ SysTick_Handler:
 @
 @
 
-SYSTEM_CLOCK      =   520000000
+SYSTEM_CLOCK      =   480000000
 SYSTICK_CYCLES    =   ((SYSTEM_CLOCK / 1000) -1)
 
     .text 32
