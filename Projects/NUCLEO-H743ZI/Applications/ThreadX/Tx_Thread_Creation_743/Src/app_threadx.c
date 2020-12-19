@@ -49,6 +49,8 @@ TX_THREAD ThreadOne;
 TX_THREAD ThreadTwo;
 TX_BYTE_POOL BytePool;
 TX_EVENT_FLAGS_GROUP EventFlag;
+
+TX_TIMER t1;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -57,6 +59,7 @@ void ThreadOne_Entry(ULONG thread_input);
 void ThreadTwo_Entry(ULONG thread_input);
 void MainThread_Entry(ULONG thread_input);
 void App_Delay(uint32_t Delay);
+void t1callback(ULONG);
 /* USER CODE END PFP */
 
 /* Global user code ---------------------------------------------------------*/
@@ -135,6 +138,14 @@ UINT App_ThreadX_Init(VOID *memory_ptr)
   {
     ret = TX_GROUP_ERROR;
   }
+
+  UINT tres;
+
+  if ((tres = tx_timer_create(&t1, "Blink_timer", t1callback, 1, 500, 500, TX_NO_ACTIVATE)) != TX_SUCCESS)
+  {
+	  ret = TX_TIMER_ERROR;
+  }
+
     /* USER CODE END  App_ThreadX_Init */
 
     return ret;
@@ -146,6 +157,10 @@ UINT App_ThreadX_Init(VOID *memory_ptr)
 /* USER CODE END Private user code */
 
 /* USER CODE BEGIN 1 */
+void t1callback(ULONG id)
+{
+    BSP_LED_Toggle(LED_RED);
+}
 /**
   * @brief  Function implementing the MainThread thread.
   * @param  thread_input: Not used 
@@ -159,6 +174,8 @@ void MainThread_Entry(ULONG thread_input)
   uint8_t count = 0; 
   (void) thread_input;
   
+  tx_timer_activate(&t1);
+
   while (count < 3)
   {
 //    old_prio = THREAD_TWO_PRIO;
